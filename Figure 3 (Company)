@@ -1,0 +1,79 @@
+interface Employee {
+    void work();
+}
+class Developer implements Employee {
+    public void work() {
+        System.out.println("Developer is coding");
+    }
+}
+
+class Designer implements Employee {
+    public void work() {
+        System.out.println("Designer is designing");
+    }
+}
+
+class Manager implements Employee {
+    public void work() {
+        System.out.println("Manager is managing");
+    }
+}
+abstract class Company {
+    // Primary method independent from concrete employee classes
+    public void runBusiness() {
+        System.out.println("Company business operations:");
+        createEmployee1().work();
+        createEmployee2().work();
+        createEmployee3().work();
+        System.out.println("Business completed successfully!\n");
+    }
+        protected abstract Employee createEmployee1();
+    protected abstract Employee createEmployee2();
+    protected abstract Employee createEmployee3();
+}
+class TechCompany extends Company {
+    protected Employee createEmployee1() {
+        return new Developer();
+    }
+    protected Employee createEmployee2() {
+        return new Developer();
+    }
+    protected Employee createEmployee3() {
+        return new Manager();
+    }
+}
+
+class DesignAgency extends Company {
+    protected Employee createEmployee1() {
+        return new Designer();
+    }
+    protected Employee createEmployee2() {
+        return new Designer();
+    }
+    protected Employee createEmployee3() {
+        return new Manager();
+    }
+}
+
+class MixedCompany extends Company {
+    protected Employee createEmployee1() {
+        return new Developer();
+    }
+    protected Employee createEmployee2() {
+        return new Designer();
+    }
+    protected Employee createEmployee3() {
+        return new Manager();
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Company techCo = new TechCompany();
+        Company designCo = new DesignAgency();
+        Company mixedCo = new MixedCompany();
+        
+        techCo.runBusiness();
+        designCo.runBusiness();
+        mixedCo.runBusiness();
+    }
+}
