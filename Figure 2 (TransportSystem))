@@ -1,0 +1,60 @@
+interface Engine {
+    void move();
+}
+
+class CombustionEngine implements Engine {
+    @Override
+    public void move() {
+        System.out.println("Combustion engine moving ");
+    }
+}
+
+class ElectricEngine implements Engine {
+    @Override
+    public void move() {
+        System.out.println("Electric engine moving ");
+    }
+}
+interface Driver {
+    void navigate();
+}
+
+class Human implements Driver {
+    @Override
+    public void navigate() {
+        System.out.println("Human driver navigating");
+    }
+}
+
+class Robot implements Driver {
+    @Override
+    public void navigate() {
+        System.out.println("Robot driver navigating ");
+    }
+}
+class Transport {
+    private Engine engine;
+    private Driver driver;
+    
+    public Transport(Engine engine, Driver driver) {
+        this.engine = engine;
+        this.driver = driver;
+    }
+    
+    public void deliver(String destination, String cargo) {
+        driver.navigate();
+        engine.move();
+        System.out.println("Delivering " + cargo + " to " + destination);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Transport car1 = new Transport(new CombustionEngine(), new Human());
+        Transport car2 = new Transport(new ElectricEngine(), new Robot());
+        Transport car3 = new Transport(new CombustionEngine(), new Robot());
+        
+        car1.deliver("karachi", "Desk");
+        car2.deliver("Lahore", "Refrigerator");
+        car3.deliver("Islamabad", "Food");
+    }
+}
