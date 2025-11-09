@@ -1,0 +1,64 @@
+interface CloudHostingProvider {
+    void createServer(String region);
+    void listServer(String region);
+}
+
+interface CloudStorageProvider {
+    void storeFile(String name);
+    void getFile(String path);
+}
+
+interface COMProvider {
+    void getCloud();
+}
+class Amazon implements CloudHostingProvider, CloudStorageProvider {
+    
+    @Override
+    public void createServer(String region) {
+        System.out.println("Amazon: Creating server in region " + region);
+    }
+    
+    @Override
+    public void listServer(String region) {
+        System.out.println("Amazon: Listing servers in region " + region);
+    }
+    
+    @Override
+    public void storeFile(String name) {
+        System.out.println("Amazon: Storing file " + name);
+    }
+    
+    @Override
+    public void getFile(String path) {
+        System.out.println("Amazon: Getting file from path " + path);
+    }
+   
+    public void getFlowAddress() {
+        System.out.println("Amazon: Getting flow address");
+    }
+}
+
+class Dropbox implements CloudStorageProvider {
+    
+    @Override
+    public void storeFile(String name) {
+        System.out.println("Dropbox: Storing file " + name);
+    }
+    
+    @Override
+    public void getFile(String path) {
+        System.out.println("Dropbox: Getting file from path " + path);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Amazon amazon = new Amazon();
+        amazon.createServer("us-east-1");
+        amazon.storeFile("document.pdf");
+        amazon.getFlowAddress();
+        
+        Dropbox dropbox = new Dropbox();
+        dropbox.storeFile("photo.jpg");
+        dropbox.getFile("/photos/photo.jpg");
+    }
+}
