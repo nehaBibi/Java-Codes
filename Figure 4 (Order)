@@ -1,0 +1,61 @@
+interface Shipping {
+    double getCost(Order order);
+    String getDate(Order order);
+}
+class Order {
+    private double total;
+    private double weight;
+    
+    public Order(double total, double weight) {
+        this.total = total;
+        this.weight = weight;
+    }
+    public double getTotal() { return total; }
+    public double getTotalWeight() { return weight; }
+}
+ class GroundShipping implements Shipping {
+    public double getCost(Order order) {
+        if (order.getTotal() > 100) return 0;
+        return Math.max(10, order.getTotalWeight() * 1.5);
+    }
+    
+    public String getDate(Order order) {
+        return "5-7 days";
+    }
+}
+ class AirShipping implements Shipping {
+    public double getCost(Order order) {
+        return Math.max(20, order.getTotalWeight() * 3.0);
+    }
+    
+    public String getDate(Order order) {
+        return "2-3 days";
+    }
+}
+ class ExpressShipping implements Shipping {
+    public double getCost(Order order) {
+        return Math.max(30, order.getTotalWeight() * 5.0);
+    }
+    
+    public String getDate(Order order) {
+        return "Next day";
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Order smallOrder = new Order(60, 8);
+        Order bigOrder = new Order(200, 10);
+        System.out.println("SMALL ORDER ($60, 8kg):");
+        System.out.println("Ground: $" + new GroundShipping().getCost(smallOrder));
+        System.out.println("Air: $" + new AirShipping().getCost(smallOrder));
+        System.out.println("Express: $" + new ExpressShipping().getCost(smallOrder));
+         System.out.println("Big ORDER ($200, 10kg):");
+        System.out.println("Ground: $" + new GroundShipping().getCost(smallOrder));
+        System.out.println("Air: $" + new AirShipping().getCost(smallOrder));
+        System.out.println("Express: $" + new ExpressShipping().getCost(smallOrder));
+        
+        
+        
+}
+}
